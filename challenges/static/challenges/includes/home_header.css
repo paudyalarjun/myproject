@@ -1,0 +1,13 @@
+header{
+    width: 100%;
+    height: 5 rem;
+    background-color: #3e3f11;
+    text-decoration: none;
+    font-size: 3.5rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #31b4b4;
+    font-weight: bold;
+}

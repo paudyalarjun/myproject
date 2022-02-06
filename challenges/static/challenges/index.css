@@ -1,0 +1,38 @@
+ul{
+    list-style: None;
+    margin: 2rem auto;
+    width: 90%;
+    max-width: 25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 1rem;
+    border-radius: 12 px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 10 rem;
+    background-color: #d875d8;
+}
+
+
+li{
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+li:last-of-type{
+    border-bottom: none;
+}
+
+li a{
+    text-decoration: none;
+    color: #0c1d16;
+}
+
+li a:hover,
+li a:active{
+    color: #066d14;
+}
+

@@ -1,7 +1,9 @@
 from http.client import HTTPResponse
+from os import sep
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+
 
 challenges_month = {
     "january": "Do 20 push-ups everyday!",
@@ -13,7 +15,7 @@ challenges_month = {
     "july": "Walk at least 2 km every day!",
     "august": "Eat Healthy Everyday!",
     "september": "Drink at least 2.5 litre water everyday!",
-    "october": "Celebrate the whole month!",
+    "october": None,
     "november": "NNN!",
     "december": "Stay Warm because this is the month of winter!"
 }
@@ -21,25 +23,49 @@ challenges_month = {
 # Create your views here.
 
 
+def index(request):
+    #list_items = ""
+    months = list(challenges_month.keys())
+
+    #for month in months:
+    #    response_url = reverse("monthly-challenge", args=[month])
+
+    #    capitalized_months = month.capitalize()
+    #    list_items += f"""<li> <a href = "{response_url}"> {capitalized_months} </a> </li>"""
+    
+    #return_list = f"<ul style=\"list-style-type:none;\">{list_items}</ul>"
+
+    return render(request, "challenges/index.html", {
+        "show_months": months,
+    })
+
 
 def monthly_challenge_int(request, month):
     months = list(challenges_month.keys())
 
     if month > len(months) or month == 0:
-        return HttpResponseNotFound("Invalid input. Enter the valid number of month!")
-    else:
-        months_redirect = months[month - 1]
-        redirect_path = reverse("monthly-challenge", args = [months_redirect])
-        return HttpResponseRedirect(redirect_path)
+        raise Http404()
+    
+    months_redirect = months[month - 1]
+    redirect_path = reverse("monthly-challenge", args = [months_redirect])
+    return HttpResponseRedirect(redirect_path)
 
 
 def monthly_challenges(request, month):
     try:
         challenge_text = challenges_month[month]
-        response_data = f"<h1>{challenge_text}</h1>"
-        return HttpResponse(response_data)
+
+        return render(request, "challenges/challenge.html", {
+            "text": challenge_text,
+            "month_name": month
+        })
+
+        # response_data = f"<h1>{challenge_text}</h1>"
+        # return HttpResponse(response_data)
     except:
-        return HttpResponseNotFound("<h1>Invalid input. Enter the name of valid month!</h1>")
+        raise Http404()
+
+
 
 
 
